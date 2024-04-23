@@ -10,30 +10,34 @@ matriz = [
     [' ', 'E', ' ', ' ', ' ']
 ]
 matrizVacia = [
-    ['B', 'X', 'X', 'X', ' '],
-    ['X', ' ', ' ', 'X', ' '],
-    [' ', 'W', 'X', 'X', ' '],
-    [' ', 'X', ' ', ' ', ' '],
-    [' ', 'X', ' ', ' ', ' '],
-    [' ', 'X', 'X', 'X', ' '],
-    [' ', 'X', ' ', ' ', ' ']
+    ['B', '🕳', '🕳', '🕳', ' '],
+    ['🕳', ' ', ' ', '🕳', ' '],
+    [' ', '🕳', '🕳', '🕳', ' '],
+    [' ', '🕳', ' ', ' ', ' '],
+    [' ', '🕳', ' ', ' ', ' '],
+    [' ', '🕳', '🕳', '🕳', ' '],
+    [' ', '🕳', ' ', ' ', ' ']
 ]
 ls_palabrasAdivinadas = []
- 
+resueltaAux = 0
+resueltaStr = '0/6'
 def mostrar_tablero(matriz):
     os.system('cls')
-    print('......................................: [ CRUCIGRAMA ] :......................................\n\nBy:\n-Menesex\n-Km1l0\n-3ero\n\n')
+    print('......................................: [ CRUCIGRAMA ] :......................................\n\nBy:\n-Menesex\n-Km1l0\n-3ero')
     print('.........................................: [Pistas] :.........................................\n')
-    print("[1]: 💡 It's something you often read for enjoyment or to learn new things")
-    print("[2]: 💡 It's a verb that often indicates existence or action")
-    print("[3]: 💡 It's a small object used to unlock doors or start a vehicle ")
-    print("[4]: 💡 It's a word often used to express curiosity or to ask about a reason or cause ")
-    print("[5]: 💡 It's a color often associated with purity, cleanliness, and innocence")
-    print("[6]: 💡 It's a word that suggests attempting to do something or testing out a possibility \n\n")
-    print('..............................................................................................\n')   
+    print("[1]: 💡 It's something you often read for enjoyment or to learn new things                ° (4 Letters | Horizontal)")
+    print("[2]: 💡 It's a verb that often indicates existence or action                              ° (2 Letters | Vertical)")
+    print("[3]: 💡 It's a small object used to unlock doors or start a vehicle                       ° (3 Letters | Vertical)")
+    print("[4]: 💡 It's a word often used to express curiosity or to ask about a reason or cause     ° (3 Letters | Horizontal)")
+    print("[5]: 💡 It's a color often associated with purity, cleanliness, and innocence             ° (5 Letters | Vertical)")
+    print("[6]: 💡 It's a word that suggests attempting to do something or testing out a possibility ° (3 Letters | Horizontal)\n")
+    print('..............................................................................................')
+    print('................................: [ CRUCIGRAMA TIEMPO REAL ] :................................\n')   
     for fila in matriz:
         print(' '.join(fila))
-    print('..............................................................................................\n')    
+    print('\n..................................: ↓ [ INSTRUCCIONES ] ↓ :..................................\n')
+    print('💠 1.) Selecciona el [NÚMERO] asignado a la palabra que deseas ingresar. pj. [3]\n💠 2.) Ingresa la palabra correspondiente (sin espacios)\n')
+    print(f'===============================: ↓ [  RESPONDE AQUÍ DEBAJO  ] ↓ :================================\nPalabras resueltas ({resueltaStr})\n')
 
 def determinarCasilla(casilla):
     global fila, columna, direccion
@@ -68,14 +72,14 @@ def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la ad
     
     #MANEJAR ERROR VALUE ERROR/ try (casilla)
     while True:
-        casilla = int(input("¿Qué palabra desea ingresar?: "))
+        casilla = int(input("Seleccione la palabra [1] - [6]\n➡️ ​​​ "))
         if casilla >= 1 and casilla <=6:
             break
         else:
             input('Por favor ingrese un número valido <ENTER>..')    
             
     while True:
-        respuesta = input("Ingrese la palabra: ").upper()
+        respuesta = input("Digite la palabra \n➡️​​​  ").upper()
         if respuesta != '':
             break
         else:
@@ -112,26 +116,32 @@ def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la ad
     
     #Retorna FALSE-TRUE para evaluarse luego en la función juego_crucigrama()
     if palabra == respuesta:
+        
         if respuesta not in ls_palabrasAdivinadas:
             ls_palabrasAdivinadas.append(respuesta)
             
-            #ACTUALIZAR EL TABLERO EN PANTALLA--------------
+            #-------ACTUALIZAR EL TABLERO EN PANTALLA--------------
             if direccion == 'H':
                 for i in range(len(respuesta)):
                     matrizVacia[fila][columna+i] = respuesta[i]
             elif direccion == 'V':
                 for i in range(len(respuesta)):
                     matrizVacia[fila+i][columna] = respuesta[i]
-            #ACTUALIZAR EL TABLERO EN PANTALLA--------------
+            #-------ACTUALIZAR EL TABLERO EN PANTALLA--------------
             
+            #-------ACTUALIZAR Cantidad de Palabras Resueltas--------------
+            global resueltaAux, resueltaStr
+            resueltaAux += 1
+            resueltaStr = str(resueltaAux)+'/6'
+            #-------------FIN (Cantidad de Palabras)-----------------------
             return True
         else:
             input("Respuesta repetida 😮 <ENTER>..")
     else:
         input("Respuesta incorrecta. Inténtalo de nuevo <ENTER>..")
         return False
-
 def juego_crucigrama(matriz):
+    
     total_palabras = 6
     palabras_adivinadas = 0
     
@@ -143,5 +153,4 @@ def juego_crucigrama(matriz):
             pass
     mostrar_tablero(matrizVacia) #ACTUALIZAR EL TABLERO POR ÚLTIMA VEZ        
     print("¡Felicidades! Has completado el crucigrama.\n\n\n\n")            
-
 juego_crucigrama(matriz)
