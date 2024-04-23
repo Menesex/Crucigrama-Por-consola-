@@ -21,6 +21,7 @@ matrizVacia = [
 ls_palabrasAdivinadas = []
 resueltaAux = 0
 resueltaStr = '0/6'
+estado = '...'
 def mostrar_tablero(matriz):
     os.system('cls')
     print('......................................: [ CRUCIGRAMA ] :......................................\n\nBy:\n-Menesex\n-Km1l0\n-3ero')
@@ -37,7 +38,7 @@ def mostrar_tablero(matriz):
         print(' '.join(fila))
     print('\n..................................: ↓ [ INSTRUCCIONES ] ↓ :..................................\n')
     print('💠 1.) Selecciona el [NÚMERO] asignado a la palabra que deseas ingresar. pj. [3]\n💠 2.) Ingresa la palabra correspondiente (sin espacios)\n')
-    print(f'===============================: ↓ [  RESPONDE AQUÍ DEBAJO  ] ↓ :================================\nPalabras resueltas ({resueltaStr})\n')
+    print(f'===============================: ↓ [  RESPONDE AQUÍ DEBAJO  ] ↓ :================================\nPalabras resueltas ({resueltaStr}) {estado}\n')
 
 def determinarCasilla(casilla):
     global fila, columna, direccion
@@ -130,15 +131,18 @@ def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la ad
             #-------ACTUALIZAR EL TABLERO EN PANTALLA--------------
             
             #-------ACTUALIZAR Cantidad de Palabras Resueltas--------------
-            global resueltaAux, resueltaStr
+            global resueltaAux, resueltaStr, estado
             resueltaAux += 1
             resueltaStr = str(resueltaAux)+'/6'
             #-------------FIN (Cantidad de Palabras)-----------------------
+            estado = '✅'
+            
             return True
         else:
             input("Respuesta repetida 😮 <ENTER>..")
     else:
-        input("Respuesta incorrecta. Inténtalo de nuevo <ENTER>..")
+        estado = '❌'
+        input("❌Respuesta incorrecta. Inténtalo de nuevo <ENTER>..")
         return False
 def juego_crucigrama(matriz):
     
