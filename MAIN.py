@@ -71,9 +71,9 @@ def determinarCasilla(casilla):
 
 def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la adivinó o no
     
-    #MANEJAR ERROR VALUE ERROR/ try (casilla)
+    #PENDIENTE: MANEJAR ERROR VALUE ERROR/ try (casilla)
     while True:
-        casilla = int(input("Seleccione la palabra [1] - [6]\n➡️ ​​​ "))
+        casilla = int(input("Seleccione la palabra [1] - [6])\n➡️  "))
         if casilla >= 1 and casilla <=6:
             break
         else:
@@ -84,37 +84,27 @@ def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la ad
         if respuesta != '':
             break
         else:
-            input('Por favor ingrese una palabra valida <ENTER>..')    
+            input('Por favor ingrese una palabra valida <ENTER>..✌')    
     
     determinarCasilla(casilla)
     global fila, columna, direccion
     
-    #--------Verificar si la fila y la columna están dentro del rango de la matriz-------------
-    while True: 
-        if fila < 0 or fila >= len(matriz) or columna < 0 or columna >= len(matriz[0]):
-            print("¡Las coordenadas están fuera de los límites de la matriz!")
-            fila = int(input("Ingrese el número de fila: "))
-            columna = int(input("Ingrese el número de columna: "))
-        else:
-            break
-    #-------------------------------------------------------------------------------------------  
-
     #--------Verificar si la palabra excede los límites de la matriz--------------
     if direccion == 'H':
         if columna + len(respuesta) > len(matriz[0]):
-            input("ERROR: ¡La palabra excede los límites de la matriz en la dirección horizontal!")
+            input("❌ ¡La palabra excede los límites de la matriz en la dirección horizontal! <ENTER>..✌")
             return False
         else:
             palabra = ''.join(matriz[fila][columna+i] for i in range(len(respuesta)))
-        
     elif direccion == 'V':
         if fila + len(respuesta) > len(matriz):
-            input("ERROR: ¡La palabra excede los límites de la matriz en la dirección vertical!")
+            input("❌ ¡La palabra excede los límites de la matriz en la dirección vertical! <ENTER>..✌")
             return False
         else:
             palabra = ''.join(matriz[fila+i][columna] for i in range(len(respuesta)))
     #----------------------------------------------------------------------------------------
     
+    # Determinar ❌ O ✅
     #Retorna FALSE-TRUE para evaluarse luego en la función juego_crucigrama()
     if palabra == respuesta:
         
@@ -139,13 +129,12 @@ def ingresar_respuesta(matriz): #Pedir la palabra al usuario- comprobar si la ad
             
             return True
         else:
-            input("Respuesta repetida 😮 <ENTER>..")
+            input("Respuesta repetida 📄📄 <ENTER>..")
     else:
         estado = '❌'
-        input("❌Respuesta incorrecta. Inténtalo de nuevo <ENTER>..")
+        input("❌Respuesta incorrecta. Inténtalo de nuevo✌ <ENTER>..")
         return False
-def juego_crucigrama(matriz):
-    
+def juego_crucigrama(matriz): 
     total_palabras = 6
     palabras_adivinadas = 0
     
@@ -156,5 +145,6 @@ def juego_crucigrama(matriz):
         else: #SI ingresar_respuesta() = FALSE - PASS
             pass
     mostrar_tablero(matrizVacia) #ACTUALIZAR EL TABLERO POR ÚLTIMA VEZ        
-    print("¡Felicidades! Has completado el crucigrama.\n\n\n\n")            
+    print("¡Felicidades! Has completado el crucigrama.\n\n\n\n") 
+               
 juego_crucigrama(matriz)
