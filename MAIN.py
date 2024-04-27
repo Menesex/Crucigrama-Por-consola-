@@ -11,13 +11,13 @@ matriz = [
 ]
 
 matrizVacia = [
-    ['B', '🕳', '🕳', '🕳', ' '],
-    ['🕳', ' ', ' ', '🕳', ' '],
-    [' ', 'W', '🕳', '🕳', ' '],
-    [' ', '🕳', ' ', ' ', ' '],
-    [' ', '🕳', ' ', ' ', ' '],
-    [' ', '🕳', '🕳', 'Y', ' '],
-    [' ', '🕳', ' ', ' ', ' ']
+    ['B', '★', '★', '★', ' '],
+    ['★', ' ', ' ', '★', ' '],
+    [' ', 'W', '★', '★', ' '],
+    [' ', '★', ' ', ' ', ' '],
+    [' ', '★', ' ', ' ', ' '],
+    [' ', '★', '★', 'Y', ' '],
+    [' ', '★', ' ', ' ', ' ']
 ]
 
 ls_palabrasAdivinadas = []
@@ -32,25 +32,29 @@ estado = '...' #inicializada en puntos suspensivos, luego se actualiza ❌ O ✅
 #-------------------------------Finaliza declaración de variables-matrices-----------------------------------
 
 #------------------------------: Definición de funciones (lógica del juego) :------------------------------------
-def juego_crucigrama(): 
+def fnt_juegoCrucigrama(): 
     global palabras_adivinadas, total_palabras
     ganar = False
     
     while ganar == False:
-        mostrar_tablero()
+        fnt_mostrarTablero()
         
         #Información = ingresar_respuesta() retorna TRUE-FALSE.
-        if (ingresar_respuesta() == True):
+        if (fnt_ingresarRespuesta() == True):
             palabras_adivinadas += 1
             
         if palabras_adivinadas == total_palabras:
             ganar = True
         
     if ganar == True:
-        mostrar_tablero()    
-        print("¡Felicidades! Has completado el crucigrama.\n\n\n\n") 
+        os.system('cls')
+        print("\n\n========  🤑​🤑​🤑 ​¡CONGRATS! You've completed the game 🤑​🤑​🤑  ========\n\n") 
+        for i in range(len(matriz)):
+            print('   '.join(matriz[i]))  
+        print('\n\n')   
+        print("========  🤑​🤑​🤑 ​¡CONGRATS! You've completed the game 🤑​🤑​🤑  ========\n\n") 
         
-def mostrar_tablero():
+def fnt_mostrarTablero():
     global matrizVacia
     os.system('cls')
     print('......................................: [ CRUCIGRAMA ] :......................................\n\nBy:\n-Menesex\n-Km1l0\n-3ero')
@@ -71,7 +75,7 @@ def mostrar_tablero():
     print('💠 1.) Selecciona el [NÚMERO] asignado a la palabra que deseas ingresar. pj. [3]\n💠 2.) Ingresa la palabra correspondiente (sin espacios)\n')
     print(f'===============================: ↓ [  RESPONDE AQUÍ DEBAJO  ] ↓ :================================\nPalabras resueltas ({resueltaStr}) {estado}\n')
 
-def determinarPosicion(casilla):
+def fnt_determinarPosicion(casilla):
     global fila, columna, direccion
     while True:
         if casilla == 1:
@@ -100,7 +104,7 @@ def determinarPosicion(casilla):
             direccion = 'H'
         break
 
-def ingresar_respuesta(): 
+def fnt_ingresarRespuesta(): 
     global matriz
     
     while True: 
@@ -117,7 +121,7 @@ def ingresar_respuesta():
         else:
             input('Por favor ingrese una palabra valida <ENTER>..✌')    
     
-    determinarPosicion(casilla)
+    fnt_determinarPosicion(casilla)
     global fila, columna, direccion
     
     #--------------------------------------------------------------------------------------------------------------
@@ -147,7 +151,7 @@ def ingresar_respuesta():
     #---------------------Determinar la validez de la respuesta (✅ o ❌)---------------------------------------
     
     #Información: La función ingresar_respuesta() retorna False o True . Y es utilizado luego en juego_crucigrama() para actualizar la variable palabras_adivinadas  
-    
+
     if palabraObjetivo == respuesta:
         
         if respuesta not in ls_palabrasAdivinadas:
@@ -176,5 +180,7 @@ def ingresar_respuesta():
         estado = '❌'
         input("❌Respuesta incorrecta. Inténtalo de nuevo✌ <ENTER>..")
         return False
+    
+
 #---------------------------Finaliza definición de funciones--------------------------------------------
-juego_crucigrama() #Empezar el juego (llamar la función)
+fnt_juegoCrucigrama() #Empezar el juego (llamar la función)
